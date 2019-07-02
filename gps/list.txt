@@ -1,0 +1,5 @@
+; GPS block list
+
+0300-030F:025	star_coins/small_star_coin.asm
+0310-032F:025	star_coins/medium_star_coin.asm
+0330-036F:025	star_coins/large_star_coin.asm

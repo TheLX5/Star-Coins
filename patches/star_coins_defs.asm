@@ -1,38 +1,39 @@
 ;#######################################################################
 ;# Internal defines, don't touch anything here.
 
-	!yes = 1
+	!yes = 1		; Used for options below.
 	!no = 0
 
-if read1($00FFD5) == $23
-	!sa1 = 1
-	!bank = $000000
-	!addr = $6000
+if read1($05D842) == $5C	; Detects Multi Midway Patch 1.7
+	!mmp = 1
+	if canreadfile1("multi_midway_defines.asm"), 1) == 1
+		incsrc multi_midway_defines.asm
+		if !sa1 == 1
+			!RAM_Midway = !RAM_Midway_SA1
+		endif
+	else
+		error "multi_midway_defines.asm needs to be in the same folder as star_coins_defs.asm!"
+	endif
 else	
-	!sa1 = 0
-	!bank = $800000
-	!addr = $0000
-endif
+	!mmp = 0
+endif	
 
 ;#######################################################################
 ;# Customization
 
-
 ;###############################
 ;# Features customization.
 
-!max_star_coins		= 16	; How many Star Coins will be in each
+!max_star_coins		= 5	; How many Star Coins will be in each
 				; level. Up to 16 Star Coins.
+				; Using more than 8 coins will end up
+				; in higher RAM usage, check the RAMs
+				; section below for more information.
 
-!perma_coins		= !no	; Directly saves the coins to the save
-				; file without needing to complete the
-				; level. Dying on the level won't reset
-				; the already collected coins.
-				; Works best with !autosave enabled.
-
-!autosave		= !no	; Automatically saves the Star Coins
-				; collected and the whole save file
-				; on OW load.
+!perma_coins		= !yes	; Directly saves the coins to the save
+				; buffer without needing to complete 
+				; the level. Dying on the level won't
+				; reset the already collected coins.
 
 !save_on_misc_exit	= !no	; Enable saving Star Coins to the 
 				; save buffer when exiting the level
@@ -47,35 +48,37 @@ endif
 				; player enters to different level
 				; where they just died.
 
+!keep_midway_coins	= !yes	; Midway Star coin count won't get reset upon
+				; changing overworld levels.
+
 ;###############################
 ;# Original HUD/Status bar.
 
 !create_counter		= !yes	; Overrides both counters explained
 				; below with a single define.
-				; Disable it if you use another HUD
-				; that isn't the VANILLA LAYER 3 HUD.
+				; Set it to !no if you use another HUD
+				; that isn't the LAYER 3 HUD.
 
 !yoshi_coins_counter	= !no	; Keeps the Yoshi Coins counter if
 				; enabled.
 
-!create_symbol_counter	= !yes	; Creates a counter in VANILLA HUD
+!create_symbol_counter	= !yes	; Creates a counter in LAYER 3 HUD
 				; using the same method as the Yoshi
 				; Coins in the original game.
-				; Not available if !max_star_coins is
-				; over 6 Star Coins.
+				; Not recommended if !max_star_coins
+				; is more than 6.
 
 !symbol_counter_pos	= $0EFF	; Position of the counter in the HUD.
-				; Check RAM $7E0EF9.
+				; Check RAM $7E0EF9 on the RAM Map.
 
 !symbol_blank_tile	= $FC	; Tile number for the blank tile in the
-				; VANILLA HUD.
+				; LAYER 3 HUD.
 !symbol_full_tile	= $2E	; Tile number for the full tile in the
-				; VANILLA HUD.
+				; LAYER 3 HUD.
 !symbol_reverse_order	= !no	; Reverse the order the Star Coins are
 				; filled into the HUD.
 
-				; NOT IMPLEMENTED YET
-!create_numeric_counter	= !no	; Creates a numeric counter in VANILLA
+!create_numeric_counter	= !no	; Creates a numeric counter in LAYER 3
 				; HUD displaying how many coins are 
 				; already collected in the level.
 				; Has priority over the symbol counter
@@ -83,7 +86,7 @@ endif
 
 !numeric_counter_pos	= $0EFF	; Position of the counter in the HUD.
 				; Requires 5 consecutive tiles.
-				; Check RAM $7E0EF9.
+				; Check RAM $7E0EF9 on the RAM Map.
 
 !numeric_leading_zeroes	= !no	; Draws leading zeroes if enabled.
 
@@ -96,10 +99,14 @@ endif
 !star_coin_give_coins	= !no	; Enable Star Coins giving coins.
 !star_coin_coin_amount	= $05	; How many coins a Star Coin will give.
 
-!star_coin_blk_outline	= !yes	; Enable Star Coins leaving an outline
+!star_coin_outline	= !yes	; Enable Star Coins leaving an outline
 				; upon collecting them.
-				; The outline tile used is:
+				; For blocks: the outline tile used is:
 				; Map16 number + 0x100
+
+!star_coin_outline_2	= !yes	; Enable collected Star Coins being shown
+				; as an outline after loading a level.
+				; If disabled, they won't be drawn.
 
 !star_coin_glitter	= !yes	; Enables Star Coins creating a glitter
 				; trail effect when collecting them.
@@ -125,37 +132,32 @@ endif
 				; $0F = 3up
 				; $10 = 5up (may glitch)
 
-				; Defines below are unused if you don't
-				; use the sprite collectible.
-				
+;###############################
+;# Star coin sprite specific defines.
+
 !star_coin_dynamic	= !yes	; Makes the Star Coin sprite dynamic.
 
-				; Defines below are unused if Objectool
-				; or Conditional Map16 isn't being used.
+;###############################
+;# Star coin blocks specific defines.
 
 !use_conditional_map16	= !yes	; Enables the usage of Conditional Map16 
 				; instead of Objectool for the Star Coin
 				; collectibles.
-				; ONLY CONDITIONAL MAP16 IS SUPPORTED
+				; ONLY CONDITIONAL MAP16 IS SUPPORTED FOR NOW.
  
 				; Objectool specific defines.
 !star_coins_page	= $03	; Map16 page where the Star Coins blocks
 				; are inserted to.
 
-				; The defines below are automatically
-				; calculated based on !star_coins_page.
-!small_coin_tile_start	= $00+!star_coins_page<<8
-!medium_coin_tile_start	= $10+!star_coins_page<<8
-!large_coin_tile_start	= $30+!star_coins_page<<8
-
-
 ;#######################################################################
 ;# RAMs
-;# Requires 392 bytes of free RAM + 386 bytes of SRAM (BW-RAM on SA-1).
+;# Requires 211 bytes of free RAM + 204 bytes of SRAM (BW-RAM on SA-1).
+;# If the maximum amount of Star coins is 9 or greater, it requires 
+;# 405 bytes of free RAM + 396 bytes of SRAM (BW-RAM on SA-1).
 
 !star_coin_ram		= $7FB408	; RAM define for non SA-1 ROMs.
 
-!star_coin_ram_sa1	= $400000	; RAM define for SA-1 ROMs.
+!star_coin_ram_sa1	= $404000	; RAM define for SA-1 ROMs.
 
 					; Don't modify any define below.
 
@@ -163,23 +165,32 @@ if !sa1 == 1
 	!star_coin_ram = !star_coin_ram_sa1
 endif
 
-;# !level_star_coins [16-bit | 2 bytes]
+;# !level_star_coins [8-bit or 16-bit | 1 or 2 bytes]
 ;# Format: FEDCBA98 76543210
 ;# Holds the flags of the Star Coins collected in the current OW level.
 ;# Modified on OW->level fade and upon collecting a Star Coin.
 
 !level_star_coins	= !star_coin_ram+$00
 
-;# !midway_star_coins [16-bit | 2 bytes]
+;# !midway_star_coins [8-bit or 16-bit | 1 or 2 bytes]
 ;# Format: FEDCBA98 76543210
 ;# Copy of !level_coins created upon touching a midway.
 
-!midway_star_coins	= !star_coin_ram+$02
+if !max_star_coins >= 9
+	!midway_star_coins	= !star_coin_ram+$02
+else
+	!midway_star_coins	= !star_coin_ram+$01
+endif
 
 ;# !previous_ow_level [8-bit | 1 byte]
 ;# Has the previous OW level number accessed.
+;# Initialized to $FF on title screen and recalculated on level load.
 
-!previous_ow_level	= !star_coin_ram+$04
+if !max_star_coins >= 9
+	!previous_ow_level	= !star_coin_ram+$04
+else
+	!previous_ow_level	= !star_coin_ram+$02
+endif
 
 ;# !level_star_coins_num [8-bit | 1 byte]
 ;# Holds number of Star Coins collected in the current playthrough of
@@ -188,36 +199,60 @@ endif
 ;# Modified upon collecting a Star Coin.
 ;# Gets reset on level load, ow load and death.
 
-!level_star_coins_num	= !star_coin_ram+$05
+if !max_star_coins >= 9
+	!level_star_coins_num	= !star_coin_ram+$05
+else
+	!level_star_coins_num	= !star_coin_ram+$03
+endif
 
-;# !level_total_coins_num [8-bit | 1 byte]
+;# !level_total_star_coins [8-bit | 1 byte]
 ;# Has the total number of coins collected in the level, counting those
 ;# that already were taken on previous playthroughs of the level.
 ;# Modified on OW->level fade and collecting a Star Coin.
 
-!level_total_star_coins	= !star_coin_ram+$06
+if !max_star_coins >= 9
+	!level_total_star_coins	= !star_coin_ram+$06
+else
+	!level_total_star_coins	= !star_coin_ram+$04
+endif
 
 ;# !game_total_coins_num [16-bit | 2 bytes]
 ;# Has the total number of Star Coins collected in the current save file.
 ;# Gets reset on file load and updated on ow load.
 
-!game_total_star_coins	= !star_coin_ram+$07
+if !max_star_coins >= 9
+	!game_total_star_coins	= !star_coin_ram+$07
+else
+	!game_total_star_coins	= !star_coin_ram+$05
+endif
 
-;# !star_coin_level_flags [16-bit | 0xC0 (192) bytes]
+;# !star_coin_level_flags [8-bit or 16-bit | 0x60 (96) or 0xC0 (192) bytes]
 ;# Format: FEDCBA98 76543210
 ;# Holds the flags of the Star Coins collected in each level.
 
-!star_coin_level_flags	= !star_coin_ram+$09
+if !max_star_coins >= 9
+	!star_coin_level_flags	= !star_coin_ram+$09
+else
+	!star_coin_level_flags	= !star_coin_ram+$07
+endif
 
-;# !star_coin_midway_flags [16-bit | 0xC0 (192) bytes]
+;# !star_coin_midway_flags [8-bit or 16-bit | 0x60 (96) or 0xC0 (192) bytes]
 ;# Format: FEDCBA98 76543210
 ;# Holds the flags of the Star Coins collected at the midway of each level.
 
-!star_coin_midway_flags	= !star_coin_ram+$C9
+if !max_star_coins >= 9
+	!star_coin_midway_flags	= !star_coin_ram+$C9
+else
+	!star_coin_midway_flags	= !star_coin_ram+$67
+endif
 
 ;# !star_coin_all_flags [8-bit | 0xC (12) bytes]
-;# Format: 76543210
+;# Format: Same as 3up Moons and related stuff in SMW.
 ;# "Collected every Star Coin in a level" bits. Each bit corresponds to every
 ;# Overworld level. Updated on ow load.
 
-!star_coin_all_flags = !star_coin_ram+$189
+if !max_star_coins >= 9
+	!star_coin_all_flags = !star_coin_ram+$189
+else
+	!star_coin_all_flags = !star_coin_ram+$C7
+endif
