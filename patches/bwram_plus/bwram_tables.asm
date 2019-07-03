@@ -23,8 +23,15 @@
 ;; and that value is 2370 bytes.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+incsrc ../star_coins_defs.asm
+
 bw_ram_table:
 ;Put save ram addresses here, not after .end.
+
+if !mmp == 1 : dl !RAM_Midway : dw $0060
+if !max_star_coin >= 9 : dl !star_coin_ram+$07 : dw $018E	;Star coins ram
+if !max_star_coin < 9 : dl !star_coin_ram+$05 : dw $00CE	
+
 
 .end
 		
@@ -33,3 +40,9 @@ bw_ram_defaults:
 ;^valid sizes: db (byte), dw (word, meaning 2 bytes: $xxxx), and dl
 ;(long, 3-bytes: $xxxxxx). The $ (dollar) symbol isn't mandatory,
 ;just represents hexadecimal type of value.
+
+if !mmp == 1 : fillbyte $00 : fill $0060		;Multiple Midway Points
+		dw $0000				;!game_total_star_coins
+		fillbyte $00 : fill $00C0		;flags
+if !max_star_coin >= 9 : fillbyte $00 : fill $00C0	;extra flags
+		fillbyte $00 : fill $000C		;all star coins flags

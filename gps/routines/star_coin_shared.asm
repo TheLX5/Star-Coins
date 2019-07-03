@@ -73,7 +73,7 @@ if !star_coin_give_coins == !yes
 endif
 
 
-	lda.b !star_coin_sfx
+	lda.b #!star_coin_sfx
 	sta !star_coin_sfx_port|!addr
 
 
@@ -81,7 +81,16 @@ if !star_coin_glitter == !yes
 	%glitter()
 endif	
 
-
+if !max_star_coins >= 9
+	rep #$20
+	lda !level_star_coins
+	eor.w #!max_star_coins_bits
+	sep #$20
+else	
+	lda !level_star_coins
+	eor.b #!max_star_coins_bits
+endif	
+	bne dont_set_bit
 	lda $13BF|!addr
 	and #$07
 	tax
@@ -93,6 +102,6 @@ endif
 	pla
 	ora !star_coin_all_flags,x
 	sta !star_coin_all_flags,x
-	
+dont_set_bit:
 
 	rtl

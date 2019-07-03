@@ -8,11 +8,13 @@
 if canreadfile1("../star_coins_defs.asm", 1) == 1
 	incsrc ../star_coins_defs.asm
 else
+	!yes = 1
+	!no = 0
 	!max_star_coins		= read1($00F2E4)
 	!perma_coins		= read1($00F2E5)&$01
 	!save_on_misc_exit	= (read1($00F2E5)&$02)>>1
 	!remember_midway	= (read1($00F2E5)&$04)>>2
-	!keep_midway		= (read1($00F2E5)&$08)>>3
+	!keep_midway_coins	= (read1($00F2E5)&$08)>>3
 	!star_coin_sfx_port	= $1DF9+(read1($00F2E6)&$03)
 	!star_coin_give_coins	= (read1($00F2E6)&$04)>>2
 	!star_coin_outline	= (read1($00F2E6)&$08)>>3
@@ -50,4 +52,10 @@ if read1($05D842) == $5C	; Detects Multi Midway Patch 1.7
 	!mmp = 1
 	!RAM_Midway = read3($05DA9F)
 endif
+	!max_star_coins_bits = 0
+	!i = 0
+	while !i != !max_star_coins
+		!max_star_coins_bits #= (!max_star_coins_bits<<1)|1
+		!i #= !i+1
+	endif
 endif

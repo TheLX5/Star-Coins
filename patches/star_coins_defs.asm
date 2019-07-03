@@ -1,25 +1,8 @@
 ;#######################################################################
-;# Internal defines, don't touch anything here.
+;# Customization
 
 	!yes = 1		; Used for options below.
 	!no = 0
-
-if read1($05D842) == $5C	; Detects Multi Midway Patch 1.7
-	!mmp = 1
-	if canreadfile1("multi_midway_defines.asm", 1) == 1
-		incsrc multi_midway_defines.asm
-		if !sa1 == 1
-			!RAM_Midway = !RAM_Midway_SA1
-		endif
-	else
-		error "multi_midway_defines.asm needs to be in the same folder as star_coins_defs.asm!"
-	endif
-else	
-	!mmp = 0
-endif	
-
-;#######################################################################
-;# Customization
 
 ;###############################
 ;# Features customization.
@@ -255,4 +238,28 @@ if !max_star_coins >= 9
 	!star_coin_all_flags = !star_coin_ram+$189
 else
 	!star_coin_all_flags = !star_coin_ram+$C7
+endif
+
+;#######################################################################
+;# Internal defines, don't touch anything here.
+
+if read1($05D842) == $5C	; Detects Multi Midway Patch 1.7
+	!mmp = 1
+	if canreadfile1("multi_midway_defines.asm", 1) == 1
+		incsrc multi_midway_defines.asm
+		if !sa1 == 1
+			!RAM_Midway = !RAM_Midway_SA1
+		endif
+	else
+		error "multi_midway_defines.asm needs to be in the same folder as star_coins_defs.asm!"
+	endif
+else	
+	!mmp = 0
+endif	
+
+!max_star_coins_bits = 0
+!i = 0
+while !i != !max_star_coins
+	!max_star_coins_bits #= (!max_star_coins_bits<<1)|1
+	!i #= !i+1
 endif
