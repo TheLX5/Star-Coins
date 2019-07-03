@@ -39,6 +39,7 @@ if !max_star_coins >= 9
 	sta !level_star_coins
 	sta !star_coin_level_flags,x
 else
+	tyx
 	lda.l reverse_bits,x
 	ldx $13BF|!addr
 	ora !level_star_coins
@@ -61,7 +62,7 @@ endif
 if !star_coin_give_points == !yes
 	lda !level_total_star_coins
 	tax
-	lda.l points-1,x
+	lda.l (read3($00F2E1)-$10)-1,x
 	%spawn_score_sprite()
 endif	
 

@@ -6,7 +6,7 @@
 
 if read1($05D842) == $5C	; Detects Multi Midway Patch 1.7
 	!mmp = 1
-	if canreadfile1("multi_midway_defines.asm"), 1) == 1
+	if canreadfile1("multi_midway_defines.asm", 1) == 1
 		incsrc multi_midway_defines.asm
 		if !sa1 == 1
 			!RAM_Midway = !RAM_Midway_SA1
@@ -30,7 +30,7 @@ endif
 				; in higher RAM usage, check the RAMs
 				; section below for more information.
 
-!perma_coins		= !yes	; Directly saves the coins to the save
+!perma_coins		= !no	; Directly saves the coins to the save
 				; buffer without needing to complete 
 				; the level. Dying on the level won't
 				; reset the already collected coins.
@@ -133,7 +133,7 @@ endif
 				; $10 = 5up (may glitch)
 
 ;###############################
-;# Star coin sprite specific defines.
+;# Star coin sprite specific defines. (NOT IMPLEMENTED/INCLUDED)
 
 !star_coin_dynamic	= !yes	; Makes the Star Coin sprite dynamic.
 

@@ -13,7 +13,6 @@ level_load:
 	phy
 
 if !remember_midway == !yes
-
 if !keep_midway_coins == !no
 	lda !previous_ow_level
 	cmp #$FF
@@ -37,12 +36,16 @@ endif
 endif
 
 	ldx $13BF|!addr
-	lda $1EA2|!addr,x
-	and #$40
-	beq .handle_new_level
 
 if !mmp == 1
+	lda $1EA2|!addr,x
+	and #$40
+	bne .handle_midway
 	lda !RAM_Midway,x
+	beq .handle_new_level
+else
+	lda $1EA2|!addr,x
+	and #$40
 	beq .handle_new_level
 endif	
 
@@ -71,7 +74,6 @@ endif
 	lda !star_coin_level_flags,x
 	sta !midway_star_coins
 	
-	lda !star_coin_level_flags,x
 .load_star_coins
 	sta !level_star_coins
 	

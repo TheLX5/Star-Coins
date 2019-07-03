@@ -93,6 +93,10 @@ endif
 	print "Star Coins v2.0.0 patch"
 	print " "
 
+
+;###############################
+;# Inserts mandatory ASM.
+
 if !insert == !no
 	print "Only important stuff was inserted."
 
@@ -107,6 +111,24 @@ org $00F2E0|!bank
 	autoclean jml fake_hijack
 
 freecode
+
+points:
+	db !first_coin_points
+	db !second_coin_points
+	db !third_coin_points
+	db !fourth_coin_points
+	db !fifth_coin_points
+	db !sixth_coin_points
+	db !seventh_coin_points
+	db !eighth_coin_points
+	db !ninth_coin_points
+	db !tenth_coin_points
+	db !eleventh_coin_points
+	db !twelfth_coin_points
+	db !thirteenth_coin_points
+	db !fourteenth_coin_points
+	db !fifteenth_coin_points
+	db !sixteenth_coin_points
 
 fake_hijack:
 	lda $19
@@ -140,6 +162,9 @@ endif
 if !remember_midway == !yes
 org $00F2E0|!bank
 	autoclean jml midway_add_up
+else
+org $00F2E0|!bank
+	autoclean jml fake_hijack
 endif
 
 if !create_counter == !yes
@@ -167,15 +192,23 @@ endif
 
 freecode
 
-if !mmp == 1
-new_no_yoshi:
-	stz $1B93|!addr
-	stz $1414|!addr
-	stz $1411|!addr
-	stz $5B
-	lda.l $05D78A|!bank,x
-	jml $05DAA7|!bank 
-endif
+points:
+	db !first_coin_points
+	db !second_coin_points
+	db !third_coin_points
+	db !fourth_coin_points
+	db !fifth_coin_points
+	db !sixth_coin_points
+	db !seventh_coin_points
+	db !eighth_coin_points
+	db !ninth_coin_points
+	db !tenth_coin_points
+	db !eleventh_coin_points
+	db !twelfth_coin_points
+	db !thirteenth_coin_points
+	db !fourteenth_coin_points
+	db !fifteenth_coin_points
+	db !sixteenth_coin_points
 
 if !remember_midway == !yes
 midway_add_up:
@@ -197,6 +230,16 @@ else
 	sta !midway_star_coins
 	sta !star_coin_midway_flags,x
 endif
+	lda $19
+	bne .big
+	lda #$01
+	sta $19
+.big	
+	lda #$05
+	sta $1DF9|!addr
+	jml $00F2C8|!bank
+else
+fake_hijack:
 	lda $19
 	bne .big
 	lda #$01
@@ -270,6 +313,15 @@ endif
 	rtl
 	
 
+if !mmp == 1
+new_no_yoshi:
+	stz $1B93|!addr
+	stz $1414|!addr
+	stz $1411|!addr
+	stz $5B
+	lda.l $05D78A|!bank,x
+	jml $05DAA7|!bank 
+endif
 
 if !create_symbol_counter == !yes
 reverse_bits:

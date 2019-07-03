@@ -190,22 +190,5 @@ else
 	db $10,$20,$40,$80
 endif
 
-points:
-	db !first_coin_points
-	db !second_coin_points
-	db !third_coin_points
-	db !fourth_coin_points
-	db !fifth_coin_points
-	db !sixth_coin_points
-	db !seventh_coin_points
-	db !eighth_coin_points
-	db !ninth_coin_points
-	db !tenth_coin_points
-	db !eleventh_coin_points
-	db !twelfth_coin_points
-	db !thirteenth_coin_points
-	db !fourteenth_coin_points
-	db !fifteenth_coin_points
-	db !sixteenth_coin_points
 
 print "Large Star Coin. It's ID/Number depends on the Map16 tile."
