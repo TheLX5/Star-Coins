@@ -281,7 +281,7 @@ endif
 +	
 	lda #!symbol_blank_tile
 ++	
-	sta !symbol_counter_pos,y
+	sta !symbol_counter_pos|!addr,y
 	rep #$20
 if !symbol_reverse_order == !yes
 	iny
@@ -298,16 +298,16 @@ if !create_numeric_counter == !yes
 if !max_star_coins >= 10
 	lda !level_total_star_coins
 	jsl $009045|!bank
-	sta !numeric_counter_pos+3
+	sta.w (!numeric_counter_pos+3)|!addr
 if !numeric_leading_zeroes == !yes
 	cpx #$00
 	beq .no_leading_zeroes
 endif
-	stx !numeric_counter_pos+2
+	stx.w (!numeric_counter_pos+2)|!addr
 .no_leading_zeroes
 else
 	lda !level_total_star_coins
-	sta !numeric_counter_pos+2
+	sta.w (!numeric_counter_pos+2)|!addr
 endif
 endif
 	rtl

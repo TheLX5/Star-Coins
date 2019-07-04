@@ -126,7 +126,8 @@
 !use_conditional_map16	= !yes	; Enables the usage of Conditional Map16 
 				; instead of Objectool for the Star Coin
 				; collectibles.
-				; ONLY CONDITIONAL MAP16 IS SUPPORTED FOR NOW.
+				; ONLY CONDITIONAL MAP16 IS SUPPORTED
+				; AT THIS MOMENT.
  
 				; Objectool specific defines.
 !star_coins_page	= $03	; Map16 page where the Star Coins blocks
@@ -138,9 +139,9 @@
 ;# If the maximum amount of Star coins is 9 or greater, it requires 
 ;# 405 bytes of free RAM + 396 bytes of SRAM (BW-RAM on SA-1).
 
-!star_coin_ram		= $7FB408	; RAM define for non SA-1 ROMs.
+!star_coin_ram		= $7FB539	; RAM define for non SA-1 ROMs.
 
-!star_coin_ram_sa1	= $404000	; RAM define for SA-1 ROMs.
+!star_coin_ram_sa1	= $40C500	; RAM define for SA-1 ROMs.
 
 					; Don't modify any define below.
 
@@ -153,7 +154,7 @@ endif
 ;# Holds the flags of the Star Coins collected in the current OW level.
 ;# Modified on OW->level fade and upon collecting a Star Coin.
 
-!level_star_coins	= !star_coin_ram+$00
+!level_star_coins		= !star_coin_ram+$00
 
 ;# !midway_star_coins [8-bit or 16-bit | 1 or 2 bytes]
 ;# Format: FEDCBA98 76543210
@@ -255,6 +256,7 @@ if read1($05D842) == $5C	; Detects Multi Midway Patch 1.7
 	endif
 else	
 	!mmp = 0
+	!RAM_Midway = $000000
 endif	
 
 !max_star_coins_bits = 0

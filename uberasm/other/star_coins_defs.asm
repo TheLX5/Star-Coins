@@ -52,4 +52,10 @@ if read1($05D842) == $5C	; Detects Multi Midway Patch 1.7
 	!mmp = 1
 	!RAM_Midway = read3($05DA9F)
 endif
+	!max_star_coins_bits = 0
+	!i = 0
+	while !i != !max_star_coins
+		!max_star_coins_bits #= (!max_star_coins_bits<<1)|1
+		!i #= !i+1
+	endif
 endif
