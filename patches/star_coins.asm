@@ -334,6 +334,21 @@ endif
 endif
 
 endif
+
+namespace sram_plus
+
+if getfilestatus("bwram_plus/bwram_plus.asm") == 1 && !sa1 == 0
+	print "Installing SRAM Plus...\n"
+	
+	incsrc sram_plus/sram_plus.asm
+elseif getfilestatus("bwram_plus/bwram_plus.asm") == 1 && !sa1 == 1
+	print "Installing BW-RAM Plus...\n"
+	
+	incsrc bwram_plus/bwram_plus.asm
+endif
+
+namespace off
+
 print "Inserted ",freespaceuse," bytes."
 print " "
 print "Star Coins configuration bytes:"
