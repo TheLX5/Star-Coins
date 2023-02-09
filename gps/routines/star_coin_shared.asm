@@ -63,7 +63,8 @@ if !star_coin_give_points == !yes
 	lda !level_total_star_coins
 	tax
 	lda.l (read3($00F2E1)-$10)-1,x
-	%spawn_score_sprite()
+	JSL $00F38A|!bank
+	;%spawn_score_sprite()
 endif	
 
 
