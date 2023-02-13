@@ -4,12 +4,13 @@ star_coin_main:
 	pha
 if !max_star_coins >= 9
 	and #$0F
+	sta $0E
 	rep #$20
+	asl
+	tax
 else
 	and #$07
 endif
-	sta $0E
-	tax
 	
 	ldy.b #!star_coins_page
 	lda reverse_bits,x
@@ -63,17 +64,17 @@ if !max_star_coins >= 9
 	pha
 	and #$07
 	asl
-	sta $0e
+	sta $0E
 	pla
 	and #$08
 	asl #2
-	ora $0e
+	ora $0E
 else
 	and #$07
 	asl
 endif
 	clc : adc #$30			; Tile number for first 32x32 Star Coin
-	sta $0e
+	sta $0E
 	lda $0E
 	sta [$6B],y
 	lda $0F
@@ -85,13 +86,13 @@ endif
 	lda $0F
 	sta [$6E],y
 	jsr ShiftObjDown
-	lda $0e
+	lda $0E
 	clc : adc #$10
 	sta [$6B],y
 	lda $0F
 	sta [$6E],y
 	jsr ShiftObjRight
-	lda $0e
+	lda $0E
 	clc : adc #$11
 	sta [$6B],y
 	lda $0F

@@ -1,7 +1,7 @@
 @asar 1.71
 
 ;#######################################################################
-;# Star coins patch v2.0.0
+;# Star coins patch v1.99
 ;# By lx5
 ;# 
 ;# Enables the usage of Star coins similar to the ones in NSMB.
@@ -9,7 +9,7 @@
 ;# 
 ;#######################################################################
 ;# This file:
-;# - Handles SA-1 and Multiple Midway Points patch detection.
+;# - Handles SA-1, Multiple Midway Points and SRAM/BW-RAM Plus patch detection.
 ;# - Saves (some) of the patch configuration into ROM to avoid copying
 ;#   star_coins_defs.asm into multiple directories.
 ;# - Can insert code to make midway points save the Star coins collected
