@@ -15,7 +15,9 @@ HeadInside:
 
 	lda $03
 	and #$0E
+if !max_star_coins >= 9
 	sta $05
+	and #$0F
 	lda $03
 	sec
 	sbc #$10
@@ -23,9 +25,10 @@ HeadInside:
 	and #$10
 	ora $05
 	and #$1E
+else
+	lsr
+endif
 	tax
-	lsr #1
-	tay
 
 	%star_coin_shared()
 

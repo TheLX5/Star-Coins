@@ -126,8 +126,6 @@
 !use_conditional_map16	= !yes	; Enables the usage of Conditional Map16 
 				; instead of Objectool for the Star Coin
 				; collectibles.
-				; ONLY CONDITIONAL MAP16 IS SUPPORTED
-				; AT THIS MOMENT.
  
 				; Objectool specific defines.
 !star_coins_page	= $03	; Map16 page where the Star Coins blocks

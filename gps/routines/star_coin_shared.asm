@@ -10,8 +10,7 @@ if !max_star_coins >= 9
 	ora !level_star_coins
 	sta !level_star_coins
 	sep #$20
-else	
-	tyx
+else
 	lda.l reverse_bits,x
 	ora !level_star_coins
 	sta !level_star_coins

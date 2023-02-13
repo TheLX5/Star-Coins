@@ -14,9 +14,12 @@ HeadInside:
 	phy
 
 	lda $03
+if !max_star_coins >= 9
 	and #$0F
-	tay
 	asl
+else
+	and #$07
+endif
 	tax
 
 	%star_coin_shared()
