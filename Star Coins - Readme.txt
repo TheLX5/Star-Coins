@@ -163,7 +163,9 @@ CustObj20:
 Test levels
 ------------------------------------
 The star coins come with two test levels: Level 105 and level 106.
-Level 105 is the original test by LX5 and tests the various blocks, from the star coins themselves (using CDM16) as well as the pass through blocks and various exits.
+
+Level 105 is the original test by LX5 and tests the various blocks, from the star coins themselves (using CDM16) to pass through blocks and various exits. It also contains the animation for the 32x32 star coins.
+
 Level 106 is a test by MarioFanGamer which tests out the custom objects as well as the secondary exit to overworld feature.
 
 
