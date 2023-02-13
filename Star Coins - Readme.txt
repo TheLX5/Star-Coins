@@ -21,14 +21,18 @@ making it easier for the player to collect all of them without replying the whol
 However, they have fundamentally different approaches:
 - The biggest difference is that IDCS uses the vanilla dragon coins and so doesn't require any external resource. This makes it easier to use but also less flexible.
 - However, all the coins are practically the same and the star coins fills up the like in vanilla SMW so it is impossible to determine where one has missed a Dragon Coin or not.
+- IDCS also makes use of item memory for further identification which comes with various limitations (e.g. no saved coins when item memory 3 is used, rooms with item memory indices).
+- It also makes it impossible to check whether a specific coin has been collected or not.
 - Good news is that custom status bars don't have to be modified to be compatible with them, nor the patches which depend on the "get all DC flag"
   (though the latter can be modified for star coins).
-- It also comes with the downside of making custom Dragon Coins practically unusable (without easy ways of calling its code)
+- IDCS also comes with the downside of making custom Dragon Coins practically unusable (without easy ways of calling its code)
   while the Star Coins can be easily modified for one's own needs.
 - As of now, IDCS is limited to five coins per level and getting all of them is permanent.
 - Furthermore (albeit not an inherent limitation as well), IDCS doesn't keep track of the coins individually like star coins do.
 - You can also use the vanilla DC with star coins for whatever reason.
 
+Which one you want to chose depends on how complex the system is and whether unique collectibles are really necessary or you just want to give the player some QoL with the Dragon Coin hunt.
+If all you care, go with Individual Dragon Coin Save but if you really need individually saved coins, go with star coins.
 
 Installation
 ------------------------------------
