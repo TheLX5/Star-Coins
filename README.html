@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Star Coins Readme</title>
+	</head>
+	<body>
+		<h1>New Super Mario Bros. - Star Coins ver 2.0.0</h1>
+		Made by lx5 and MarioFanGamer
+		
+		<h2>Introduction</h2>
+		<p>
+		This is a pack of blocks which replicates the Star Coins from the New Super Mario Bros. series but also
+		with features of SMW's own Dragon Coins. They function as a more advanced version of SMW's own Dragon Coins.
+		</p>
+		
+		
+		<h2>Functions</h2>
+		<p>
+		These coins make it possible for the creator to make each Dragon Coins unique which in turn makes it possible
+		for the player to know which coin is what and also makes 100% collection overall easier as keeping track of these
+		coins also makes it possible to stay them collected even after the player's death.
+		<br/>
+		They can be set be permanently collected once the player picks them up in general or be only saved when the
+		corresponding level has been beaten or also when a midway point has been collected. Like in the home series, the
+		progress of the Star Coins can even be set up to only be permanently collected should the player beat the level
+		while collecting a midway point only temporarily preserves and will be dismissed should the player switch levels
+		(this is only recommend when the midway state also is temporal).
+		<br/>
+		Beyond that, a single level can have up to 16 different coins, though using more than 8 Star Coins results in
+		roughly double the RAM usage.
+		</p>
+		
+		<p>
+		The Star Coins come in three different sizes: A small 16x16 coin in the same size as a regular coin,
+		a medium-sized 16x32 which is a Dragon / Yoshi Coin and a 32x32 which is the closest to the Star Coins
+		in the NSMB series.
+		</p>
+		
+		
+		<h2>Comparison With Similar Resources</h2>
+		<p>
+		There are many different resources which achieve a similar result as Star Coins, most notably
+		<a href="https://www.smwcentral.net/?p=section&a=details&id=22888">Individual Dragon Coin Save.</a>
+		However, they also differ in the implementations so depending on the use-case, you might chose one
+		over the other.
+		</p>
+		
+		<p>
+		Features of Star Coins:
+		<ul>
+			<li>Hard to install due to external dependencies (patch, UberASM).</li>
+			<li>Requires modification to support custom status bars.</li>
+			<li>Placing Star Coins into level may prove to be difficult.</li>
+			<li>Customisable amount of collectibles.</li>
+			<li>Keeping track of coins in total.</li>
+			<li>Partial Lunar Magic support.</li>
+			<li>Easily customisable.</li>
+			<li>Keeps vanilla Dragon Coins.</li>
+		</ul>
+		Star Coins are thus very customisable and are great for advanced collectibles in someone's hack
+		even if they require more effort in the end.
+		</p>
+		
+		<p>
+		Features of Individual Dragon Coin Save:
+		<ul>
+			<li>Requires a simple patch.</li>
+			<li>Dragon Coins can be placed into the level like usual barring some edge cases.</li>
+			<li>All coins are the same.</li>
+			<li>Dependent on item memory.</li>
+			<li>Doesn't handle different horizontal level dimensions very well.</li>
+			<li>No support for vanilla-styled Dragon Coins.</li>
+			<li>Only support for five Dragon Coins.</li>
+			<li>Doesn't support custom Dragon Coin blocks nor custom Dragon Coin objects.</li>
+		</ul>
+		This makes IDCS perfect if you want to improve SMW's Dragon Coins and don't mind the lack of unique
+		Dragon Coins or lack of customisability. Some disadvantages aren't inherent, though, and could be
+		solved with an update to IDCS.
+		</p>
+		
+		
+		<h2>Installation</h2>
+		<p>
+		The installation process of Star Coins can get quite complex. In particular, they require multiple other tools
+		besides just Lunar Magic and GPS or PIXI.
+		</p>
+		
+		<p>To insert the Star Coins, you need the following resources:</p>
+		<ul>
+			<li><a href="https://www.smwcentral.net/?p=section&a=details&id=25953">Asar</a></li>
+			<li><a href="https://www.smwcentral.net/?p=section&a=details&id=31515">Gopher Popcorn Stew</a> (when using the blocks)</li>
+			<li><a href="https://www.smwcentral.net/?p=section&a=details&id=26026">PIXI</a> (when using the sprites)</li>
+			<li><a href="https://www.smwcentral.net/?p=section&a=details&id=28974">UberASM Tool</a></li>
+			<li>Optionally: <a href="https://www.smwcentral.net/?p=section&a=details&id=24217">ObjecTool</a></li>
+			<li>Optionally: <a href="https://www.smwcentral.net/?p=section&a=details&id=18531">SRAM / BW-RAM Plus</a></li>
+		</ul>
+		
+		
+		<h3>The Patch</h3>
+		<p>
+		The first step you have to do is to insert the patch. It installs the configuration bytes which are read from
+		the configuration file for the other resources but also adds a Star Coin display for the status bar and modifies
+		the midway points to preserve Star Coins should the player collects it (when desired).
+		<br/>
+		A list of options can be seen below.
+		</p>
+		
+		
+		<h3>Blocks</h3>
+		<p>
+		The blocks are the Star Coins themselves. Included with it is a list file which has all the included blocks set
+		up. In case you already have custom blocks inserted, simply copy the content into your <kbd>list.txt</kbd>.
+		When using ObjecTool, make sure the page number for the coins is the same as set in the configuration. The other
+		blocks can be inserted on any page.
+		</p>
+		
+		<p>
+		To save on insertion size (and sanity for the maintainers), the coins use only one block per size as well as a
+		shared routine for all of them and use the Map16 number to determine the ID as well as the part of a coin.
+		Similarly, they use their Map16 number to determine the tile they turn into when collected. More specifically,
+		they turn into the tile on the next Map16 page.
+		<br/>
+		A side effect is that Map16 tiles which point to these coins don't respect use the coin's tile number, not the
+		caller ones.
+		</p>
+		
+		<h3>Sprites</h3>
+		<p>
+		Since Star Coin sprites don't exist yet, this section has been intentionally left empty for future purposes.
+		</p>
+		
+		
+		<h3>UberASM</h3>
+		<p>
+		The main bulk of the star coins is handled by UberASM. It handles code for level load (whether the star coins
+		are collected or not) as well as overworld code (e.g. persistence of star coins).
+		</p>
+		
+		<p>
+		The UberASM codes are prepared for a fresh installation. Simply copy UberASM Tool into its own folder, copy
+		the <kbd>uberasm</kbd> folder from this patch. Then open up <kbd>macro_library.asm</kbd> into a text editor
+		and put a <code>incsrc star_coins_defs.asm</code> into the code (preferably at the very start or very end).
+		</p>
+
+<pre class="code_block">
+gamemode:
+0C	ow_load.asm
+0E	ow_main.asm
+11	level_load.asm
+</pre>
+		
+		<p>
+		In case you already have inserted some gamemode codes, you have put a
+		<code>jsl star_coins_xxx</code> at the beginning of the code (preferably after the <kbd>init</kbd> /
+		<kbd>main</kbd> label).
+		Alternatively, you can use Fernap's <a href="https://github.com/Fernap/UberASMTool">UberASM 2.0</a>
+		which allows you to insert multiple codes for the same gamemode (though alternatively, you can
+		insert codes all levels and submaps but that requires changing some labels and merging both overworld
+		codes).
+		</p>
+		
+		
+		<h3>SRAM / BW-RAM Plus</h3>
+		<p>
+		For a system like this, it makes sense to have the coins to be permanently even after resetting the game.
+		The Star Coins patch will automatically install either patch should you place.
+		</p>
+		
+		<p>
+		In case you already use SRAM / BW-RAM Plus, what you instead have to do is to take the existing 
+		<kbd>sram_table.asm</kbd> / <kbd>bwram_table.asm</kbd> file and add <kbd>incsrc ../star_coins_defs.asm</kbd>
+		somewhere (preferably at the top)
+		</p>
+		
+		
+		<h2>Installation of Objects</h2>
+		The Star Coins are supposed to be persistent i.e. when once collected, they stay collected. The problem
+		is that Direct Map16 Objects aren't sufficient for this (as evident that Dragon Coins built from them
+		are) and require external resources. Star Coins gives you two choices:
+		<ul>
+			<li>Conditional Direct Map16 Objects</li>
+			<li>ObjecTool</li>
+		</ul>
+		
+		<h3>Conditional Direct Map16 Objects</h3>
+		<p>
+		Lunar Magic gives the user a possibility to make Direct Map16 Objects conditional as in have them only
+		appear under certain conditions or change their appearance when certain flags are set. The advantage with
+		this method is that this is integrated with Lunar Magic and but comes with the downside of having more
+		limited options (e.g. conditional objects either appear or don't or will use the tiles of the next Map16
+		page not different to !-blocks) and the insertion is less streamlined due to the lack of a (good) tool
+		for custom objects, instead relying on a patch.
+		<br/>
+		In this specific case, it also means you have to take care that the Map16 tiles you use match with the ID
+		of the coins.
+		</p>
+		
+		<p>
+		To use them, you first must have <kbd>!use_conditional_map16</kbd> in the settings enabled. If you already
+		ran UberASM to insert their codes when you previously had it disabled, make sure to run it again in case.
+		</p>
+		
+		<p>
+		In order to make the coins to be permanently collected, select the coin, go to Edit and then select
+		Conditional Direct Map16... This opens up the following window:
+		<img src="">
+		The value you enter for "Flag Number" is the value you entered for <kbd>!conditional_map16_flag</kbd>
+		plus the ID of the Star Coin - 1. In addition, if you want to make the Star Coin show an outline after
+		it was been collected, "Always show objects" is recommend to be set unless you place an outline behind
+		every Star Coin.
+		<br/>
+		When done correctly, hovering over the coin will show the information you entered to the object.
+		<img src="">
+		</p>
+		
+		
+		<h3>ObjecTool</h3>
+		<p>
+		A more difficult to use alternative is ObjecTool. ObjecTool allows you to place objects not to
+		dissimilar to what SMW has instead of a single tile (or a grouping of tiles with the same pattern)
+		and even with your own conditionals beyond what's possible with Conditional Direct Map16 Objects.
+		The downside is that ObjecTool is more difficult to use due to limited support by Lunar Magic (most
+		notably, the lack of a proper display in the editor) as well as no tool to streamline the insertion
+		process.
+		<br/>
+		In this specific case, another advantage is that you don't have to make sure the Map16 tiles match
+		up with the ID.
+		</p>
+		
+		<p>
+		In order to use ObjecTool, put the necessary files into the <kbd>objectool</kbd> folder. Next, open
+		up <kbd>custobjcode.asm</kbd> and place a <code>incsrc star_coins_objects.asm</code> at the top
+		but below <code>@includefrom objectool.asm</code>. This installs all the necessary code which then
+		can be called from the object you can use. To make the installation progress easier, some macros
+		are provided to help set up the objects.
+		</p>
+		
+		<p>
+		There are two kinds of objects in ObjecTool: The fixed size extended objects and resizeable normal
+		objects and they both have different installation steps
+		</p>
+		
+		<p>
+		Extended objects are the easy option. These objects are uniform i.e. they can't be resized and also
+		can't be given any extra information but they also are place them and you're done.
+		</p>
+		
+		<p>
+		The extended objects have got the macros <kbd>%star_coin_small(id)</kbd>, <kbd>%star_coin_medium(id)</kbd>
+		and <kbd>%star_coin_large(id)</kbd> which places a 16x16, 16x32 and 32x32 Star Coin of a certain ID
+		(the value specified in "id"), respectively. In case you're confused, here is an example code on how to
+		use them:
+		</p>
+		
+<pre class="code_block">
+
+CustExObj98:
+	%star_coin_small(1)
+
+CustExObj99:
+	%star_coin_small(2)
+
+CustExObj9A:
+	%star_coin_small(3)
+
+CustExObj9B:
+	%star_coin_small(4)
+
+CustExObj9C:
+	%star_coin_small(5)
+
+CustExObj9D:
+	%star_coin_medium(1)
+
+CustExObj9E:
+	%star_coin_medium(2)
+
+CustExObj9F:
+	%star_coin_medium(3)
+
+CustExObjA0:
+	%star_coin_medium(4)
+
+CustExObjA1:
+	%star_coin_medium(5)
+
+CustExObjA2:
+	%star_coin_large(1)
+
+CustExObjA3:
+	%star_coin_large(2)
+
+CustExObjA4:
+	%star_coin_large(3)
+
+CustExObjA5:
+	%star_coin_large(4)
+
+CustExObjA6:
+	%star_coin_large(5)
+</pre>
+		
+		<p>
+		To place them into a level, press "Insert" on your keyboard or go to "Edit", then to "Insert Manual..."
+		when you're in the object mode. This will open up the following window:
+		<br/>
+		<img src="">
+		<br/>
+		The most important fields are "Command" (marked in magenta) and Size/Type/Ext (marked in yellow). The
+		former is the general object number and extended objects <em>always</em> use the object ID 0. To determine
+		the type of object, you enter a value in the latter field. You there enter the NN value from "CustExObjNN".
+		<br/>
+		The resulting object will appear glitched in Lunar Magic but that's because the editor doesn't support
+		custom objects aside from its own. It should appear fine in-game, though.
+		</p>
+		
+		<p>
+		The normal object can be created with <kbd>%star_coin_variable()</kbd> which uses the second extra
+		byte to determine the ID and size of the coin.
+		</p>
+		
+<pre class="code_block">
+CustObj20:
+	%star_coin_variable()
+</pre>
+		
+		<p>
+		Like with custom extended objects, custom normal objects too can only be manually inserted. What's different
+		are the parameters:
+		<img src="">
+		<br/>
+		Custom normal objects are all objects 2D (this is different to vanilla objects which all have a unique ID) and
+		for customisation, one is able to use two extra bytes akin to sprites with extra bytes. When using ObjecTool, the
+		first one (marked in yellow) is to determine the object number and is the NN value from "CustObjNN" while the
+		second one (marked in blue) is an optional parameter which can be used for one's own objects.
+		In this case, the leftmost digit determines the size (0 = small, 1 = medium, 2 = large) while the rightmost digit
+		sets the ID - 1.
+		<br/>
+		Like custom extended objects, custom normal objects also appear glitched in Lunar Magic but should also appear fine
+		in-game.
+		</p>
+
+
+	<h2>Credits</h2>
+	<ul>
+		<li>lx5 for creating the initial patch as well revamping the patch (v1.99)</li>
+		<li>MarioFanGamer for remoderation update (v1.14) as well as finalising the revamp</li>
+		<li>Blind Devil for remoderation update</li>
+		<li>Carld923 for the star coin graphics</li>
+	</ul>
+
+
+	<h2>Questions and Bug Report</h2>
+	<p>
+	If you have any question regarding the Star Coins, it's recommend to ask it in the public first. The best place
+	to ask is on <a href="https://www.smwcentral.net">SMW Central</a>, though you can also ask on
+	<a href="https://sneslab.net">SNESLab</a> about questions. But make sure you follow the readme first before you.
+	</p>
+	
+	<p>
+	Bugs should be preferably reported on <a href="https://github.com/TheLX5/Star-Coins/issues">GitHub</a>, though
+	you can contact MarioFanGamer if you don't want to create a GitHub account specifically for reporting bugs.
+	You can contact him through Discord under the user tag <kbd>MarioFanGamer#7813</kbd> as well as on SMW Central
+	under the username <a href="https://www.smwcentral.net/?p=profile&id=22951"><kbd>MarioFanGamer</kbd></a>.
+	<br/>
+	When reporting bugs, make sure you follow the following steps:
+	<ul>
+		<li>Description: What does the bug do i.e. is it purely visual or does it affect gameplay and what exactly went wrong?</li>
+		<li>Reproducibility: How can this bug be reproduced i.e. what have you done to cause this bug?</li>
+		<li>Resources used: Does the bug happen on a ROM with only the Star Coins installed or is it caused by a 3rd party ASM hack?</li>
+		<li>Screenshots: When possible, show a screenshot (or even a video) of the bug.</li>
+	</ul>
+	</p>
+
+
+	<h2>Changelog</h2>
+	<p>
+		v1.99 (13/Jan/23):
+		<ul>
+			<li>C3 Beta Release</li>
+			<li>Revamped Star Coins to single blocks</li>
+			<li>Modified settings to be stored in the ROM</li>
+			<li>Added Conditional Direct Map16 support</li>
+			<li>Removal of the star coin sprite</li>
+			<li>Removal of the custom sparkle</li>
+		</ul>
+	</p>
+	
+	<p>
+		v1.14 (24/Apr/18):
+		<ul>
+			<li>Remoderation update (MFG/Blind Devil)</li>
+			<li>Added SA-1 support</li>
+			<li>Changed animation file to require only one ExAnimation slot.</li>
+			<li>Included a custom sprite (PIXI) version of the Star Coin - check out the ASM file for more info.</li>
+		</ul>
+	</p>
+	
+	<p>
+		v1.13 (16/Sep/15):
+		<ul>
+			<li>Fixed the routine that generates sparkles.</li>
+			<li>Fixed the .ips having some weird stuff.</li>
+			<li>Included an edited change_map16 routine to make the star coins work correctly on vertical levels</li>
+		</ul>
+	</p>
+	
+	<p>
+		v1.12 (16/May/15):
+		<ul>
+			<li>Fixed some initialization code</li>
+			<li>Removed some jimmy code</li>
+			<li>Fixed a define and some descriptions in StarCoinsDefs.asm</li>
+		</ul>
+	</p>
+	
+	<p>
+		v1.11 (4/Jan/15):
+		<ul>
+			<li>Submitted to SMWC.</li>
+			<li>Fixed minor things in the file.</li>
+		</ul>
+	</p>
+	
+	<p>
+		v1.1 (22/Dec/14):
+		<ul>
+			<li>Now is possible to have eight star coins in each level.</li>
+			<li>Added documentation about custom objects.</li>
+			<li>Added a small tutorial of how to create more Custom Objects.</li>
+			<li>Removed some dumb and useless things from StarCoinsDefs.asm</li>
+		</ul>
+	</p>
+	
+	<p>
+		v1.0 (20/Dec/14):
+		<ul>
+			<li>C3 RELEASE (yay!).</li>
+			<li>Fixed a lot of things with the midpoint.</li>
+			<li>Translated all files.</li>
+		</ul>
+	</p>
+	
+	<p>
+		v0.2 (14/Dec/14):
+		<ul>
+			<li>Fixed a crash when you die</li>
+			<li>Fixed a bug related to the give points routine.</li>
+		</ul>
+	</p>
+	
+	<p>
+		v0.1 (14/Dec/14):
+		<ul>
+			<li>Initial release in Fortaleza Reznor (Spanish forum)</li>
+		</ul>
+	</p>
+	</body>
+</html>
