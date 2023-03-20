@@ -114,8 +114,8 @@
 		
 		<h3>Blocks</h3>
 		<p>
-		The blocks are the Star Coins themselves. Included with it is a list file which has all the included blocks set
-		up. In case you already have custom blocks inserted, simply copy the content into your <kbd>list.txt</kbd>.
+		Among others, the blocks are the Star Coins themselves. Included with it is a list file which has all the included
+		blocks set up. In case you already have custom blocks inserted, simply copy the content into your <kbd>list.txt</kbd>.
 		When using ObjecTool, make sure the page number for the coins is the same as set in the configuration. The other
 		blocks can be inserted on any page.
 		</p>
@@ -126,9 +126,24 @@
 		Similarly, they use their Map16 number to determine the tile they turn into when collected. More specifically,
 		they turn into the tile on the next Map16 page.
 		<br/>
-		A side effect is that Map16 tiles which point to these coins don't respect use the coin's tile number, not the
-		caller ones.
+		A side effect is that Map16 tiles which point to these coins don't respect use the caller's tile number, not the
+		referenced ones.
 		</p>
+		
+		<p>
+		Their graphics are located in <kbd>ExGFX80.bin</kbd> which is inserted for BG3. In addition, <kbd>ExGFX60.bin</kbd>
+		contains the animation for the 32x32 coin with the animation thereof being found in <kbd>Sample Level 105.mwl</kbd>.
+		Note that <kbd>ExGFX60.bin</kbd> is global and not supposed to be inserted for AN2.
+		</p>
+		
+		<p>
+		There also exist three other blocks: One which checks if a specific Star Coin has been collected (much like the
+		Star Coins themselves, they check for the Map16 number to determine their ID), one for the amount of Star Coins
+		collected in total (can be the current level or globally, no Map16 tricks used there) and one which checks whether
+		all coins in the current level have been collected. All of these blocks are examples on what you can do with
+		Star Coins and can be used as a base for other resources.
+		</p>
+		
 		
 		<h3>Sprites</h3>
 		<p>
@@ -200,6 +215,7 @@ if !max_star_coins >= 9 : fillbyte $00 : fill $00C0	;extra flags
 			<li>ObjecTool</li>
 		</ul>
 		
+		
 		<h3>Conditional Direct Map16 Objects</h3>
 		<p>
 		Lunar Magic gives the user a possibility to make Direct Map16 Objects conditional as in have them only
@@ -234,6 +250,10 @@ if !max_star_coins >= 9 : fillbyte $00 : fill $00C0	;extra flags
 		When done correctly, hovering over the coin will show the information you entered to the object:
 		<br/>
 		<img src="readme/cdm16_hover.png">
+		</p>
+		
+		<p>
+		You can see an example on how they work in the included <kbd>Sample Level 105.mwl</kbd> file.
 		</p>
 		
 		
@@ -369,6 +389,10 @@ CustObj20:
 		<br/>
 		Like custom extended objects, custom normal objects also appear glitched in Lunar Magic but should also appear fine
 		in-game.
+		</p>
+		
+		<p>
+		You can see an example on how they work in the included <kbd>Sample Level 106.mwl</kbd> file.
 		</p>
 
 
