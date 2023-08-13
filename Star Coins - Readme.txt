@@ -46,7 +46,8 @@ ANY PATCH WHICH MODIFIES THIS SECTION WILL BREAK THIS PATCH UNLESS MODIFIED ACCO
 
 Once you've done that, you can insert the remaining resources.
 
-In order to insert the blocks themselves, simply use the existing list.txt. In case you already have other blocks, simply copy its content into your list.txt.
+In order to insert the blocks themselves, you first must insert "incsrc star_coins_defs.asm" (without quotes) into GPS's defines.asm, preferably at the beginnin.
+Then you can use the existing list.txt. In case you already have other blocks, simply copy its content into your list.txt.
 Most of the blocks including the coins themselves check for the Map16 number.
 The 16x16 and 16x32 coins as well as the passable with X coins blocks check for the rightmost digit of the Map16 number while the 32x32 also check for current row.
 Furthermore, the 16x32 and 32x32 coins to determine which half is which with odd rows being the top half and (for the 32x32 coins) even columns the left half.

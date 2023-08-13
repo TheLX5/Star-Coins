@@ -78,7 +78,7 @@ endif
 	sta !level_star_coins
 	
 if !use_conditional_map16 == !yes
-	sta $7FC06E
+	sta $7FC060+!conditional_map16_flag
 endif
 	
 	sep #$10

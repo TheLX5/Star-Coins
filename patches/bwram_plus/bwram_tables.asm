@@ -29,8 +29,8 @@ bw_ram_table:
 ;Put save ram addresses here, not after .end.
 
 if !mmp == 1 : dl !RAM_Midway : dw $0060
-if !max_star_coin >= 9 : dl !star_coin_ram+$07 : dw $018E	;Star coins ram
-if !max_star_coin < 9 : dl !star_coin_ram+$05 : dw $00CE	
+if !max_star_coins >= 9 : dl !star_coin_ram+$07 : dw $018E	;Star coins ram
+if !max_star_coins < 9 : dl !star_coin_ram+$05 : dw $00CE	
 
 
 .end
@@ -44,5 +44,5 @@ bw_ram_defaults:
 if !mmp == 1 : fillbyte $00 : fill $0060		;Multiple Midway Points
 		dw $0000				;!game_total_star_coins
 		fillbyte $00 : fill $00C0		;flags
-if !max_star_coin >= 9 : fillbyte $00 : fill $00C0	;extra flags
+if !max_star_coins >= 9 : fillbyte $00 : fill $00C0	;extra flags
 		fillbyte $00 : fill $000C		;all star coins flags
