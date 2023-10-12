@@ -337,12 +337,12 @@ endif
 
 namespace sram_plus
 
-if getfilestatus("bwram_plus/bwram_plus.asm") == 1 && !sa1 == 0
-	print "Installing SRAM Plus...\n"
+if getfilestatus("bwram_plus/bwram_plus.asm") == 0 && !sa1 == 0
+	print "Installing SRAM Plus..."
 	
 	incsrc sram_plus/sram_plus.asm
-elseif getfilestatus("bwram_plus/bwram_plus.asm") == 1 && !sa1 == 1
-	print "Installing BW-RAM Plus...\n"
+elseif getfilestatus("bwram_plus/bwram_plus.asm") == 0 && !sa1 == 1
+	print "Installing BW-RAM Plus..."
 	
 	incsrc bwram_plus/bwram_plus.asm
 endif
