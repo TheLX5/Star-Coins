@@ -9,14 +9,42 @@
 		<h1>New Super Mario Bros. - Star Coins ver 2.0.0</h1>
 		<div style="text-align: center;">Made by lx5 and MarioFanGamer</div>
 		
-		<h2>Introduction</h2>
+		<h2>Table of Contents</h2>
+		<ul>
+			<li><a href="#introduction">1 Introduction</a></li>
+			<li><a href="#features">2 Features</a></li>
+			<li><a href="#comparisons">3 Comparison With Similar Resources</a></li>
+			<li>
+				<a href="#installation">4 Installation</a>
+				<ul>
+					<a href="#installation_patch"><li>4.1 The Patch</li></a>
+					<a href="#installation_blocks"><li>4.2 Blocks</li></a>
+					<a href="#installation_sprites"><li>4.3 Sprites</li></a>
+					<a href="#installation_uberasm"><li>4.4 UberASM</li></a>
+					<a href="#installation_sram_bwram_plus"><li>4.5 SRAM / BW-RAM Plus</li></a>
+				</ul>
+			</li>
+			<li>
+				<a href="#objects_installation">5 Installation of Objects</a>
+				<ul>
+					<a href="#objects_conditional_direct_map16"><li>5.1 Conditional Direct Map16</li></a>
+					<a href="#objects_objectool"><li>5.2 ObjecTool</li></a>
+				</ul>
+			</li>
+			<li><a href="#programming">6 Programming</a></li>
+			<li><a href="#contact">7 Questions and Bug Report</a></li>
+			<li><a href="#credits">8 Credits</a></li>
+			<li><a href="#changelog">9 Changelog</a></li>
+		</ul>
+		
+		<h2 id="introduction">1 Introduction</h2>
 		<p>
 		This is a pack of blocks which replicates the Star Coins from the New Super Mario Bros. series but also
 		with features of SMW's own Dragon Coins. They function as a more advanced version of SMW's own Dragon Coins.
 		</p>
 		
 		
-		<h2>Functions</h2>
+		<h2 id="features">2 Features</h2>
 		<p>
 		These coins make it possible for the creator to make each Dragon Coins unique which in turn makes it possible
 		for the player to know which coin is what and also makes 100% collection overall easier as keeping track of these
@@ -43,7 +71,7 @@
 		</p>
 		
 		
-		<h2>Comparison With Similar Resources</h2>
+		<h2 id="comparisons">3 Comparison With Similar Resources</h2>
 		<p>
 		There are many different resources which achieve a similar result as Star Coins, most notably
 		<a href="https://www.smwcentral.net/?p=section&a=details&id=22888">Individual Dragon Coin Save.</a>
@@ -85,7 +113,7 @@
 		</p>
 		
 		
-		<h2>Installation</h2>
+		<h2 id="installation">4 Installation</h2>
 		<p>
 		The installation process of Star Coins can get quite complex. In particular, they require multiple other tools
 		besides just Lunar Magic and GPS or PIXI.
@@ -102,7 +130,7 @@
 		</ul>
 		
 		
-		<h3>The Patch</h3>
+		<h3 id="installation_patch">4.1 The Patch</h3>
 		<p>
 		The first step you have to do is to insert the patch. It installs the configuration bytes which are read from
 		the configuration file for the other resources but also adds a Star Coin display for the status bar and modifies
@@ -112,7 +140,7 @@
 		</p>
 		
 		
-		<h3>Blocks</h3>
+		<h3 id="installation_blocks">4.2 Blocks</h3>
 		<p>
 		Among others, the blocks are the Star Coins themselves. Included with it is a list file which has all the included
 		blocks set up. In case you already have custom blocks inserted, simply copy the content into your <kbd>list.txt</kbd>.
@@ -145,13 +173,13 @@
 		</p>
 		
 		
-		<h3>Sprites</h3>
+		<h3 id="installation_sprites">4.3 Sprites</h3>
 		<p>
 		Since Star Coin sprites don't exist yet, this section has been intentionally left empty for future purposes.
 		</p>
 		
 		
-		<h3>UberASM</h3>
+		<h3 id="installation_uberasm">4.4 UberASM</h3>
 		<p>
 		The main bulk of the star coins is handled by UberASM. It handles code for level load (whether the star coins
 		are collected or not) as well as overworld code (e.g. persistence of star coins).
@@ -181,7 +209,7 @@ gamemode:
 		</p>
 		
 		
-		<h3>SRAM / BW-RAM Plus</h3>
+		<h3 id="installation_sram_bwram_plus">4.5 SRAM / BW-RAM Plus</h3>
 		<p>
 		For a system like this, it makes sense to have the coins to be permanently even after resetting the game.
 		The Star Coins patch will automatically install either patch should you place.
@@ -206,7 +234,7 @@ if !max_star_coins >= 9 : fillbyte $00 : fill $00C0	;extra flags
 		</p>
 		
 		
-		<h2>Installation of Objects</h2>
+		<h2 id="objects_installation">5 Installation of Objects</h2>
 		The Star Coins are supposed to be persistent i.e. when once collected, they stay collected. The problem
 		is that Direct Map16 Objects aren't sufficient for this (as evident that Dragon Coins built from them
 		are) and require external resources. Star Coins gives you two choices:
@@ -216,7 +244,7 @@ if !max_star_coins >= 9 : fillbyte $00 : fill $00C0	;extra flags
 		</ul>
 		
 		
-		<h3>Conditional Direct Map16 Objects</h3>
+		<h3 id="objects_conditional_direct_map16">5.1 Conditional Direct Map16 Objects</h3>
 		<p>
 		Lunar Magic gives the user a possibility to make Direct Map16 Objects conditional as in have them only
 		appear under certain conditions or change their appearance when certain flags are set. The advantage with
@@ -257,7 +285,7 @@ if !max_star_coins >= 9 : fillbyte $00 : fill $00C0	;extra flags
 		</p>
 		
 		
-		<h3>ObjecTool</h3>
+		<h3 id="objects_objectool">5.2 ObjecTool</h3>
 		<p>
 		A more difficult to use alternative is ObjecTool. ObjecTool allows you to place objects not to
 		dissimilar to what SMW has instead of a single tile (or a grouping of tiles with the same pattern)
@@ -396,16 +424,40 @@ CustObj20:
 		</p>
 
 
-		<h2>Credits</h2>
-		<ul>
-			<li>lx5 for creating the initial patch as well revamping the patch (v1.99)</li>
-			<li>MarioFanGamer for remoderation update (v1.14) as well as finalising the revamp</li>
-			<li>Blind Devil for remoderation update</li>
-			<li>Carld923 for the star coin graphics</li>
-		</ul>
+		<h2 id="programming">6 Programming</h2>
+		
+		<p>
+		Star Coins comes with various options to customise to the user's needs as well as options to extend existing resources
+		or make new ones which take advantage of Star Coins.
+		</p>
 
 
-		<h2>Questions and Bug Report</h2>
+		<h3 id="programming_defines">6.1 Defines</h3>
+		
+		<p>
+		The most important file is <kbd>star_coins_defs.asm</kbd> as includes all the settings you set within the patch.
+		There actually are two versions of it: One is that of the patch itself which is where you set up all the customisations
+		as well as providing a description for each define (including that of <kbd>!star_coin_ram</kbd>) while another version
+		references all the defines by reading from the ROM and is found in all the other tools.<br/>
+		It's the latter which is recommend to be referenced in your own resources because otherwise the other would have to
+		copy <kbd>star_coins_defs.asm</kbd> into the respective in order for the resources to update.
+		</p>
+
+		<p>
+		The description for each of them can be found in the main <kbd>star_coins_defs.asm</kbd>, though there is one exception:
+		<kbd>!&lt;nth&gt;_coin_points</kbd>.
+		Unlike the other defines, the values in them aren't placed into a define but rather, they're stored as a table whose
+		pointer is defined in <kbd>points_table</kbd>.
+		This define contains the 24-bit pointer to the worth of a Star Coin in respect to the currently collected coins. See
+		line 68 in <kbd>routines/star_coin_shared.asm</kbd> for more information.
+		</p>
+
+
+		<h3 id="programming_collecting">6.2 Collecting a Coin</h3>
+		
+		<p>To be continued</p>
+
+		<h2 id="contact">7 Questions and Bug Report</h2>
 		<p>
 		If you have any question regarding the Star Coins, it's recommend to ask it in the public first. The best place
 		to ask is on <a href="https://www.smwcentral.net">SMW Central</a>, though you can also ask on
@@ -429,7 +481,16 @@ CustObj20:
 		</p>
 
 
-		<h2>Changelog</h2>
+		<h2 id="credits">8 Credits</h2>
+		<ul>
+			<li>lx5 for creating the initial patch as well revamping the patch (v1.99)</li>
+			<li>MarioFanGamer for the remoderation update (v1.14) as well as finalising the revamp</li>
+			<li>Blind Devil for the remoderation update</li>
+			<li>Carld923 for the star coin graphics</li>
+		</ul>
+
+
+		<h2 id="changelog">9 Changelog</h2>
 		<p>
 			v1.99 (13/Jan/23):
 			<ul>

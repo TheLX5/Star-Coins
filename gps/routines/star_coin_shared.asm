@@ -6,11 +6,17 @@
 if !perma_coins == !no
 if !max_star_coins >= 9
 	rep #$20
+	lda !level_star_coins
+	and.l reverse_bits,x	; bit can't access long addressing *sad noises*
+	bne ?collected_coin
 	lda.l reverse_bits,x
 	ora !level_star_coins
 	sta !level_star_coins
 	sep #$20
 else
+	lda !level_star_coins
+	and.l reverse_bits,x
+	bne ?collected_coin
 	lda.l reverse_bits,x
 	ora !level_star_coins
 	sta !level_star_coins
@@ -61,10 +67,20 @@ endif
 if !star_coin_give_points == !yes
 	lda !level_total_star_coins
 	tax
-	lda.l (read3($00F2E1)-$10)-1,x
+	lda.l !points_table-1,x
+	bra +
+?collected_coin:
+	sep #$20
+	lda #!star_coin_points_collected
++
 	JSL $00F38A|!bank
 	;%spawn_score_sprite()
+else
+?collected_coins:
+	sep #$20
 endif	
+
+
 
 
 if !star_coin_give_coins == !yes
@@ -90,7 +106,7 @@ else
 	lda !level_star_coins
 	eor.b #!max_star_coins_bits
 endif	
-	bne dont_set_bit
+	bne ?dont_set_bit
 	lda $13BF|!addr
 	and #$07
 	tax
@@ -102,6 +118,6 @@ endif
 	pla
 	ora !star_coin_all_flags,x
 	sta !star_coin_all_flags,x
-dont_set_bit:
+?dont_set_bit:
 
 	rtl
