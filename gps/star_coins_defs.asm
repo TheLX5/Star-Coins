@@ -51,7 +51,7 @@ else
         !star_coin_midway_flags     #= !star_coin_ram+$67
         !star_coin_all_flags        #= !star_coin_ram+$C7
 endif
-        !points_table               #= !config_bytes+read1(!config_bytes+11)
+        !star_coins_points_table    #= !config_bytes+read1(!config_bytes+11)
         
         !mmp = 0
 if read1($05D842) == $5C        ; Detects Multi Midway Patch 1.7

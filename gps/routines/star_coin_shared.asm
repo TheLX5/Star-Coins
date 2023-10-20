@@ -67,7 +67,7 @@ endif
 if !star_coin_give_points == !yes
 	lda !level_total_star_coins
 	tax
-	lda.l !points_table-1,x
+	lda.l !star_coins_points_table-1,x
 	bra +
 ?collected_coin:
 	sep #$20
