@@ -30,7 +30,7 @@ bw_ram_table:
 
 if !mmp == 1 : dl !RAM_Midway : dw $0060
 if !max_star_coins >= 9 : dl !star_coin_ram+$07 : dw $018E	;Star coins ram
-if !max_star_coins < 9 : dl !star_coin_ram+$05 : dw $00CE	
+if !max_star_coins < 9 : dl !star_coin_ram+$05 : dw $00CE
 
 
 .end
