@@ -1,0 +1,20 @@
+body {
+	background-image: linear-gradient(to bottom, LightYellow 50%, LemonChiffon 75%);
+	background-attachment: fixed;
+	margin: 10px 15px 5px 75px;
+	width: 70%
+}
+
+h1 {
+	text-align: center;
+	margin-bottom: 10px
+}
+
+.code_block {
+	font-family: monospace;
+	
+	background-color: black;
+	border: solid green 1px;
+	color: white;
+	padding: 2px;
+}

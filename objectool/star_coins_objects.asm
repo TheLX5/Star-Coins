@@ -19,7 +19,11 @@ if !max_star_coins >= 9
 	sep #$20
 endif
 	beq +
+if !star_coin_outline
 	iny
+else
+	rts
+endif
 +	sty $0F
 	
 	pla
