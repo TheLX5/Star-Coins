@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Star Coins Readme</title>
-		<link rel="stylesheet" href="readme/style.css">
+		<link rel="stylesheet" href="style.css">
 	</head>
 	<body>
 		<h1>New Super Mario Bros. - Star Coins ver 2.0.0</h1>
@@ -65,9 +65,9 @@
 		a medium-sized 16x32 which is a Dragon / Yoshi Coin and a 32x32 which is the closest to the Star Coins
 		in the NSMB series.
 		<br/>
-		<img src="readme/star_coins_small.png">
-		<img src="readme/star_coins_medium.png">
-		<img src="readme/star_coins_large.png">
+		<img src="star_coins_small.png">
+		<img src="star_coins_medium.png">
+		<img src="star_coins_large.png">
 		</p>
 		
 		
@@ -136,7 +136,7 @@
 		the configuration file for the other resources but also adds a Star Coin display for the status bar and modifies
 		the midway points to preserve Star Coins should the player collects it (when desired).
 		<br/>
-		A list of options can be seen below in <kbd>star_coins_defs.asm</kbd>.
+		A list of options can be seen in <kbd>star_coins_defs.asm</kbd>.
 		</p>
 		
 		
@@ -266,7 +266,7 @@ if !max_star_coins >= 9 : fillbyte $00 : fill $00C0	;extra flags
 		In order to make the coins to be permanently collected, select the coin, go to <kbd>Edit</kbd> and then
 		select <kbd>Conditional Direct Map16...</kbd> This opens up the following window:
 		<br/>
-		<img src="readme/cdm16_menu.png">
+		<img src="cdm16_menu.png">
 		<br/>
 		The value you enter for "Flag Number" is the value you entered for <kbd>!conditional_map16_flag</kbd>
 		plus the ID of the Star Coin - 1. In addition, if you want to make the Star Coin show an outline after
@@ -277,7 +277,7 @@ if !max_star_coins >= 9 : fillbyte $00 : fill $00C0	;extra flags
 		<p>
 		When done correctly, hovering over the coin will show the information you entered to the object:
 		<br/>
-		<img src="readme/cdm16_hover.png">
+		<img src="cdm16_hover.png">
 		</p>
 		
 		<p>
@@ -375,7 +375,7 @@ CustExObjA6:
 		To place them into a level, press "Insert" on your keyboard or go to "Edit", then to "Insert Manual..."
 		when you're in the object mode. This will open up the following window:
 		<br/>
-		<img src="readme/add_extended_object.png">
+		<img src="add_extended_object.png">
 		<br/>
 		The most important fields are "Command" (marked in magenta) and Size/Type/Ext (marked in yellow). The
 		former is the general object number and extended objects <em>always</em> use the object ID 0. To determine
@@ -406,7 +406,7 @@ CustObj20:
 		Like with custom extended objects, custom normal objects too can only be manually inserted. What's different
 		are the parameters:
 		<br/>
-		<img src="readme/add_normal_object.png">
+		<img src="add_normal_object.png">
 		<br/>
 		Custom normal objects are all objects 2D (this is different to vanilla objects which all have a unique ID) and
 		for customisation, one is able to use two extra bytes akin to sprites with extra bytes. When using ObjecTool, the
@@ -483,7 +483,7 @@ CustObj20:
 
 		<h2 id="credits">8 Credits</h2>
 		<ul>
-			<li>lx5 for creating the initial patch as well revamping the patch (v1.99)</li>
+			<li>lx5 for creating the initial patch as well revamping the patch (v2.0)</li>
 			<li>MarioFanGamer for the remoderation update (v1.14) as well as finalising the revamp</li>
 			<li>Blind Devil for the remoderation update</li>
 			<li>Carld923 for the star coin graphics</li>
@@ -491,6 +491,14 @@ CustObj20:
 
 
 		<h2 id="changelog">9 Changelog</h2>
+		<p>
+			v2.0 ():
+			<ul>
+				<li>Official v2.0 Release</li>
+				<li>Fixes detection of SRAM / BR-RAM Plus</li>
+				<li>Made coins to be collectible only once</li>
+			</ul>
+		</p>
 		<p>
 			v1.99 (13/Jan/23):
 			<ul>

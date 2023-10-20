@@ -8,7 +8,10 @@ go).
 The coins come in the sizes 16x16 (same size as a small coin), 16x32 (appearing like a Dragon Coin) and
 32x32 (comparable to their appearance).
 
-For a more detailed instruction, please refer to [this](docs/main.html) documentation.
+## Instruction
+
+For a detailed insertion, please refer to [this](docs/main.html) documentation which comes with
+screenshots.
 
 ## Folder Layout
 
@@ -24,7 +27,7 @@ For a more detailed instruction, please refer to [this](docs/main.html) document
 
 ## Changelog
 
-If you want to see the changelog, please refer to (CHANGELOG.md).
+If you want to see the changelog, please refer to [CHANGELOG](CHANGELOG.md).
 
 ## Contributors
 

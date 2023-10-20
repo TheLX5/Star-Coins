@@ -1,0 +1,3 @@
+# Prevent the upload of ROM files before they're preserved in history.
+*.smc
+*.sfc
