@@ -33,4 +33,5 @@ If you want to see the changelog, please refer to [CHANGELOG](CHANGELOG.md).
 
 - LX5 (original creator, owner)
 - MarioFanGamer (remoderation, primary maintainer)
-- Blind Devil
+- Blind Devil (remoderation)
+- Carld923 (star coin graphics)
